@@ -38,18 +38,35 @@ function createEditButton(parent){
     editButton.innerText = "Edit"
     editButton.addEventListener("click", () => {
         editDog(parent)
-        console.log(parent)
     })
     buttonData.append(editButton)
 }
 
 function editDog(dog){
     const form = document.getElementById("dog-form")
-    const tagName = document.getElementsByTagName("name")
-        console.log(tagName)
-        tagName.placeholder = dog.name.innerText
-    const tagBreed = document.getElementsByTagName("breed")
-        tagBreed.placeholder = dog.innerText
-    const tagSex = document.getElementsByTagName("sex")
-        tagSex.placeholder = dog.innerText
+    form.children[0].value = dog.children[0].innerText
+    form.children[1].value = dog.children[1].innerText
+    form.children[2].value = dog.children[2].innerText
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        let dogObject = {
+            name:e.target.children[0].value,
+            breed:e.target.children[1].value,
+            sex:e.target.children[2].value
+        }
+        fetch(`http://localhost:3000/dogs/${dog.id}`,{
+            method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body:JSON.stringify(dogObject)
+        })
+            .then(response => {
+                response.json()}
+                )
+            .then(data => {
+                console.log(data)
+            })
+    })
 }
