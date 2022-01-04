@@ -62,9 +62,7 @@ function editDog(dog){
         },
         body:JSON.stringify(dogObject)
         })
-            .then(response => {
-                response.json()}
-                )
+            .then(response => response.json())
             .then(data => {
                 console.log(data)
             })
