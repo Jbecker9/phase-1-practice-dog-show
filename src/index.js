@@ -43,6 +43,7 @@ function createEditButton(parent){
 }
 
 function editDog(dog){
+    // console.log(dog.id)
     const form = document.getElementById("dog-form")
     form.children[0].value = dog.children[0].innerText
     form.children[1].value = dog.children[1].innerText
@@ -64,7 +65,16 @@ function editDog(dog){
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                editList(data)
             })
     })
+}
+
+function editList(info){
+    const nameData = document.getElementById("dog-name")
+    nameData.innerText = info.name
+    const breedData = document.getElementById("dog-breed")
+    breedData.innerText = info.breed
+    const breedSex = document.getElementById("dog-sex")
+    breedSex.innerText = info.sex
 }
